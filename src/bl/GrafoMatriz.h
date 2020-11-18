@@ -4,7 +4,7 @@
 
 #ifndef GRAFO_SECUENCIAL_GRAFOMATRIZ_H
 #define GRAFO_SECUENCIAL_GRAFOMATRIZ_H
-#define max 5;
+#define Max 5
 
 class GrafoMatriz {
 public:
@@ -14,7 +14,7 @@ private:
     int indice;             // 1..max
     int valorar;            // 1 ó 0 (booleana)
     char nombre[10];        // nombre del nodo
-    int m[indice][indice];  // matriz
+    int m[Max][Max];  // matriz
 };
 
 

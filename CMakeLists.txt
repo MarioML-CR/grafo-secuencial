@@ -3,4 +3,4 @@ project(grafo_secuencial)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(grafo_secuencial src/ui/main.cpp src/bl/GrafoMatriz.cpp src/bl/GrafoMatriz.h)
+add_executable(grafo_secuencial src/ui/main.cpp src/bl/GrafoMatriz.cpp src/bl/GrafoMatriz.h src/ui/utilitario/Validar.cpp src/ui/utilitario/Validar.h src/tl/Gestor.cpp src/tl/Gestor.h src/bl/Nodo.cpp src/bl/Nodo.h src/bl/NodoArco.cpp src/bl/NodoArco.h src/bl/Lista.cpp src/bl/Lista.h)
