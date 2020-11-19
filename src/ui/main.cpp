@@ -10,7 +10,8 @@ void menu();
 void procesarMenu(int &, bool &);
 int ingresarNum(string);
 void insertVertice();
-void crearArco();
+void crearArcoManual();
+void crearArcoDefault();
 void mostrarMatrizAd();
 void mostrarMatrizCostos();
 void buscarVertice();
@@ -26,11 +27,12 @@ void menu() {
     int opcion = 0;
     do {
         cout << "\nMenú Árbol\n\nElija una opción\n" <<
-             "01 Crear arco\n" <<
-             "02 Mostrar matriz adyacente\n" <<
-             "03 Mostrar matriz de Costos\n" <<
-             "04 Buscar vértice\n" <<
-             "05 Salir\n";
+             "01 Crear arco manual\n" <<
+             "02 Crear arco default\n" <<
+             "03 Mostrar matriz adyacente\n" <<
+             "04 Mostrar matriz de Costos\n" <<
+             "05 Buscar vértice\n" <<
+             "06 Salir\n";
         cin >> valor;
         opcion = validar.ingresarInt(valor);
         procesarMenu(opcion, salir);
@@ -39,18 +41,21 @@ void menu() {
 void procesarMenu(int & pOpcion, bool & salir) {
     switch (pOpcion) {
         case 1:
-            crearArco();
+            crearArcoManual();
             break;
         case 2:
-            mostrarMatrizAd();
+            crearArcoDefault();
             break;
         case 3:
-            mostrarMatrizCostos();
+            mostrarMatrizAd();
             break;
         case 4:
-            buscarVertice();
+            mostrarMatrizCostos();
             break;
         case 5:
+            buscarVertice();
+            break;
+        case 6:
             salir = true;
             break;
         default:
@@ -75,7 +80,7 @@ void insertVertice(){
         gestor.insertVertice(i);
     }
 }
-void crearArco(){
+void crearArcoManual(){
     string msg1 = "Ingrese el vértice origen\n";
     string msg2 = "Ingrese el vértice destino\n";
     string msg3 = "Ingrese el peso del vértice\n";
@@ -90,28 +95,32 @@ void crearArco(){
         gestor.crearArco(verticeDestino,verticeOrigen,peso);
         salir = ingresarNum(msg4);
     }
-//    gestor.crearArco(1,2,1);
-//    gestor.crearArco(2,1,1); // 1-2
-//    gestor.crearArco(1,4,3);
-//    gestor.crearArco(4,1,3); // 1-4
-//    gestor.crearArco(2,3,5);
-//    gestor.crearArco(3,2,5); // 2-3
-//    gestor.crearArco(2,5,2);
-//    gestor.crearArco(5,2,2); // 2-5
-//    gestor.crearArco(3,5,2);
-//    gestor.crearArco(5,3,2); // 3-5
-//    gestor.crearArco(3,6,3);
-//    gestor.crearArco(6,3,3); // 3-6
-//    gestor.crearArco(4,5,1);
-//    gestor.crearArco(5,4,1); // 4-5
-//    gestor.crearArco(4,7,5);
-//    gestor.crearArco(7,4,5); // 4-7
-//    gestor.crearArco(5,8,4);
-//    gestor.crearArco(8,5,4); // 5-8
-//    gestor.crearArco(7,8,2);
-//    gestor.crearArco(8,7,2); // 7-8
-//    gestor.crearArco(6,8,1);
-//    gestor.crearArco(8,6,1); // 6-8
+    gestor.crearMatrizAdyacente();
+    gestor.crearMatrizCostos();
+}
+void crearArcoDefault(){
+    gestor.crearArco(1,2,1);
+    gestor.crearArco(2,1,1); // 1-2
+    gestor.crearArco(1,4,3);
+    gestor.crearArco(4,1,3); // 1-4
+    gestor.crearArco(2,3,5);
+    gestor.crearArco(3,2,5); // 2-3
+    gestor.crearArco(2,5,2);
+    gestor.crearArco(5,2,2); // 2-5
+    gestor.crearArco(3,5,2);
+    gestor.crearArco(5,3,2); // 3-5
+    gestor.crearArco(3,6,3);
+    gestor.crearArco(6,3,3); // 3-6
+    gestor.crearArco(4,5,1);
+    gestor.crearArco(5,4,1); // 4-5
+    gestor.crearArco(4,7,5);
+    gestor.crearArco(7,4,5); // 4-7
+    gestor.crearArco(5,8,4);
+    gestor.crearArco(8,5,4); // 5-8
+    gestor.crearArco(7,8,2);
+    gestor.crearArco(8,7,2); // 7-8
+    gestor.crearArco(6,8,1);
+    gestor.crearArco(8,6,1); // 6-8
     gestor.crearMatrizAdyacente();
     gestor.crearMatrizCostos();
 }

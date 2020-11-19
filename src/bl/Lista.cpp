@@ -74,7 +74,7 @@ bool Lista::existeVertice(int i, int f) const {
     return (buscarv(i) != nullptr && buscarv(f) != nullptr);
 }
 /**
- * Método:              crearArco
+ * Método:              crearArcoManual
  * Descripción:         Método que permite crear un arco entre los dos vértices pasados
  * por parámetro
  * @param i             variable de tipo entero que representa el vértice inical
