@@ -17,21 +17,33 @@ void Gestor::setLista(Lista *lista) {
 }
 
 void Gestor::insertVertice(int valor) {
-    getLista()->Insertarv(valor);
+    getLista()->insertarVertice(valor);
 }
 
 void Gestor::crearArco(int origen, int destino, int peso) {
-    getLista()->creararco(origen, destino, peso);
+    getLista()->crearArco(origen, destino, peso);
 }
 
 void Gestor::crearMatrizAdyacente() {
-    getLista()->CrearMatriz();
+    getLista()->cargarMatrizAdy();
 }
 
 string Gestor::mostrarMartrizAdyacente() {
-    return getLista()->mostrarmatriz();
+    return getLista()->mostrarMatrizVertices();
 }
 
-void Gestor::buscarVertice(int valor) {
-    getLista()->Buscarv(valor);
+string Gestor::buscarVertice(int valor) {
+    if (getLista()->buscarv(valor)) {
+        return "existe";
+    } else {
+        return "no existe";
+    }
+}
+
+void Gestor::crearMatrizCostos() {
+    getLista()->cargarMatrizCostos();
+}
+
+string Gestor::mostrarMartrizCostos() {
+    return getLista()->mostrarMatrizCostos();
 }

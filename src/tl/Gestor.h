@@ -22,9 +22,13 @@ public:
 
     void crearMatrizAdyacente(); // se crea la matriz de ady
 
+    void crearMatrizCostos();
+
     string mostrarMartrizAdyacente();
 
-    void buscarVertice(int valor);
+    string mostrarMartrizCostos();
+
+    string buscarVertice(int valor);
 
 private:
     Lista *lista;

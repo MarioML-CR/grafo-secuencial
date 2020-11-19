@@ -12,6 +12,7 @@ int ingresarNum(string);
 void insertVertice();
 void crearArco();
 void mostrarMatrizAd();
+void mostrarMatrizCostos();
 void buscarVertice();
 
 int main() {
@@ -27,8 +28,9 @@ void menu() {
         cout << "\nMenú Árbol\n\nElija una opción\n" <<
              "01 Crear arco\n" <<
              "02 Mostrar matriz adyacente\n" <<
-             "03 Buscar vértice\n" <<
-             "04 Salir\n";
+             "03 Mostrar matriz de Costos\n" <<
+             "04 Buscar vértice\n" <<
+             "05 Salir\n";
         cin >> valor;
         opcion = validar.ingresarInt(valor);
         procesarMenu(opcion, salir);
@@ -43,9 +45,12 @@ void procesarMenu(int & pOpcion, bool & salir) {
             mostrarMatrizAd();
             break;
         case 3:
-            buscarVertice();
+            mostrarMatrizCostos();
             break;
         case 4:
+            buscarVertice();
+            break;
+        case 5:
             salir = true;
             break;
         default:
@@ -66,46 +71,61 @@ int ingresarNum(string msg){
     return num;
 }
 void insertVertice(){
-    for (int i = 1; i <= 5; ++i) {
+    for (int i = 1; i <= 8; ++i) {
         gestor.insertVertice(i);
     }
 }
 void crearArco(){
-//    string msg1 = "Ingrese el vértice origen\n";
-//    string msg2 = "Ingrese el vértice destino\n";
-//    string msg3 = "Ingrese el peso del vértice\n";
-//    string msg4 = "Ingrese 0 si desea salir\n";
-//    int verticeOrigen, verticeDestino, peso;
-//    int salir = 1;
-//    while (salir != 0) {
-//        verticeOrigen = ingresarNum(msg1);
-//        verticeDestino = ingresarNum(msg2);
-//        peso = ingresarNum(msg3);
-//        gestor.crearArco(verticeOrigen,verticeDestino,peso);
-//        gestor.crearArco(verticeDestino,verticeOrigen,peso);
-//        salir = ingresarNum(msg4);
-//    }
-    gestor.crearArco(1,2,1);
-    gestor.crearArco(2,1,1);
-    gestor.crearArco(1,4,2);
-    gestor.crearArco(4,1,2);
-    gestor.crearArco(4,3,3);
-    gestor.crearArco(3,4,3);
-    gestor.crearArco(3,2,4);
-    gestor.crearArco(2,3,4);
-    gestor.crearArco(4,5,5);
-    gestor.crearArco(5,4,5);
-    gestor.crearArco(5,2,6);
-    gestor.crearArco(2,5,6);
-
+    string msg1 = "Ingrese el vértice origen\n";
+    string msg2 = "Ingrese el vértice destino\n";
+    string msg3 = "Ingrese el peso del vértice\n";
+    string msg4 = "Ingrese 0 si desea salir\n";
+    int verticeOrigen, verticeDestino, peso;
+    int salir = 1;
+    while (salir != 0) {
+        verticeOrigen = ingresarNum(msg1);
+        verticeDestino = ingresarNum(msg2);
+        peso = ingresarNum(msg3);
+        gestor.crearArco(verticeOrigen,verticeDestino,peso);
+        gestor.crearArco(verticeDestino,verticeOrigen,peso);
+        salir = ingresarNum(msg4);
+    }
+//    gestor.crearArco(1,2,1);
+//    gestor.crearArco(2,1,1); // 1-2
+//    gestor.crearArco(1,4,3);
+//    gestor.crearArco(4,1,3); // 1-4
+//    gestor.crearArco(2,3,5);
+//    gestor.crearArco(3,2,5); // 2-3
+//    gestor.crearArco(2,5,2);
+//    gestor.crearArco(5,2,2); // 2-5
+//    gestor.crearArco(3,5,2);
+//    gestor.crearArco(5,3,2); // 3-5
+//    gestor.crearArco(3,6,3);
+//    gestor.crearArco(6,3,3); // 3-6
+//    gestor.crearArco(4,5,1);
+//    gestor.crearArco(5,4,1); // 4-5
+//    gestor.crearArco(4,7,5);
+//    gestor.crearArco(7,4,5); // 4-7
+//    gestor.crearArco(5,8,4);
+//    gestor.crearArco(8,5,4); // 5-8
+//    gestor.crearArco(7,8,2);
+//    gestor.crearArco(8,7,2); // 7-8
+//    gestor.crearArco(6,8,1);
+//    gestor.crearArco(8,6,1); // 6-8
+    gestor.crearMatrizAdyacente();
+    gestor.crearMatrizCostos();
 }
 void mostrarMatrizAd(){
-    gestor.crearMatrizAdyacente();
     string matriz = gestor.mostrarMartrizAdyacente();
     cout << matriz << endl;
 }
 void buscarVertice(){
     string msg = "Ingrese el vértice que desea buscar\n";
     int vertice = ingresarNum(msg);
-    gestor.buscarVertice(vertice);
+    string msg2 = gestor.buscarVertice(vertice);
+    cout << msg2 << endl;
+}
+void mostrarMatrizCostos(){
+    string matriz = gestor.mostrarMartrizCostos();
+    cout << matriz << endl;
 }
