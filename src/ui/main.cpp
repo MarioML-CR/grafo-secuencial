@@ -76,9 +76,17 @@ int ingresarNum(string msg){
     return num;
 }
 void insertVertice(){
-    for (int i = 1; i <= 8; ++i) {
-        gestor.insertVertice(i);
-    }
+//    for (int i = 1; i <= 8; ++i) {
+//        gestor.insertVertice(i);
+//    }
+    gestor.insertVertice(5);
+    gestor.insertVertice(8);
+    gestor.insertVertice(3);
+    gestor.insertVertice(2);
+    gestor.insertVertice(4);
+    gestor.insertVertice(6);
+    gestor.insertVertice(7);
+    gestor.insertVertice(1);
 }
 void crearArcoManual(){
     string msg1 = "Ingrese el vértice origen\n";

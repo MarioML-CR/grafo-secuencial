@@ -2,36 +2,38 @@
 // Created by Mario Martinez on 17/11/20.
 //
 
-#include "Lista.h"
+#include "Grafo.h"
 
 
-Lista::Lista(Nodo *primero) {
+Grafo::Grafo(Vertice *primero) {
     setPrimero(nullptr);
 }
 
-Nodo *Lista::getPrimero() const {
+Vertice *Grafo::getPrimero() const {
     return primero;
 }
 
-void Lista::setPrimero(Nodo *primero) {
-    Lista::primero = primero;
+void Grafo::setPrimero(Vertice *primero) {
+    Grafo::primero = primero;
 }
 /**
  * Método:              insertarVertice
  * Descripción:         Método que permite insertar un vértice
  * @param v             variable que representa el valor de vértice
  */
-void Lista::insertarVertice(int v) {
-    Nodo *anterior;
+void Grafo::insertarVertice(int v) {
+    Vertice *nuevo = new Vertice(v);
     if (listavVacia()) {
-        setPrimero(new Nodo(v));
-    } else { if(v <= getPrimero()->getVertice()){
-            setPrimero(new Nodo(v));
+        setPrimero(nuevo);
+    } else {
+        if(v <= getPrimero()->getValor()){
+            setPrimero(nuevo);
         } else {
-            anterior = getPrimero();
-            while ( (anterior->getSiguiente()) && (anterior->getSiguiente()->getVertice() <= v)){
-                anterior = anterior->getSiguiente(); }
-            anterior->setSiguiente(new Nodo(v));
+            Vertice *anterior = getPrimero();
+            while ((anterior->getSig()) && (anterior->getSig()->getValor() <= v)){
+                anterior = anterior->getSig();
+            }
+            anterior->setSig(nuevo);
         }
     }
 }
@@ -40,7 +42,7 @@ void Lista::insertarVertice(int v) {
  * Descripción:         Método que permite verificar si la lista de vértices está vacía
  * @return              variable de tipo bool, true si está vacía, falso lo inverso.
  */
-bool Lista::listavVacia() const { //función booleana.
+bool Grafo::listavVacia() const { //función booleana.
     return getPrimero() == nullptr;
 }
 /**
@@ -50,15 +52,15 @@ bool Lista::listavVacia() const { //función booleana.
  * @param v             variable que representa el valor de vértice
  * @return              varibale de tipo nodo que representa el nodo del valor pasado por parámetro
  */
-Nodo *Lista::buscarv(int v) const { //función para buscar valores dentro de nuestro grafo
+Vertice *Grafo::buscarv(int v) const { //función para buscar valores dentro de nuestro grafo
     int z;
-    Nodo *indice;
+    Vertice *indice;
     indice = getPrimero();
     while(indice != nullptr){
-        if(v == indice->getVertice()){
+        if(v == indice->getValor()){
             return indice;
         }
-        indice = indice->getSiguiente();
+        indice = indice->getSig();
     }
     return indice;
 }
@@ -70,7 +72,7 @@ Nodo *Lista::buscarv(int v) const { //función para buscar valores dentro de nue
  * @param f             variable de tipo entero que representa el vértice final
  * @return              variable de tipo bool, false si no existen, falso lo inverso.
  */
-bool Lista::existeVertice(int i, int f) const {
+bool Grafo::existeVertice(int i, int f) const {
     return (buscarv(i) != nullptr && buscarv(f) != nullptr);
 }
 /**
@@ -81,25 +83,25 @@ bool Lista::existeVertice(int i, int f) const {
  * @param f             variable de tipo entero que representa el vértice final
  * @param peso          variable de tipo entero que representa el peso del arco
  */
-void Lista::crearArco(int i, int f, int peso) const { //función para crear un nuevo arco
-    Nodo *pos;
+void Grafo::crearArco(int i, int f, int peso) const { //función para crear un nuevo arco
+    Vertice *pos;
     pos = getPrimero();
     if(existeVertice(i, f)){
         while(pos != nullptr){
-            if(i == pos->getVertice() ){
-                if(pos->getPuntero() == nullptr){
-                    pos->setPuntero(new NodoArco(f, peso));
+            if(i == pos->getValor() ){
+                if(pos->getAdy() == nullptr){
+                    pos->setAdy(new Arista(f, peso));
                 } else {
-                    NodoArco *temp = pos->getPuntero();
+                    Arista *temp = pos->getAdy();
                     while(temp->getSiguiente() != nullptr) {
                         temp = temp->getSiguiente();
                     }
-                    temp->setSiguiente(new NodoArco(f, peso));
+                    temp->setSiguiente(new Arista(f, peso));
                     temp = nullptr;
                     delete temp;
                 }
             }
-            pos = pos->getSiguiente();//guerdamos los datos.
+            pos = pos->getSig();//guerdamos los datos.
         }
     }
 }
@@ -107,17 +109,17 @@ void Lista::crearArco(int i, int f, int peso) const { //función para crear un n
  * Método:              cargarMatrizAdy
  * Descripción:         Método que permite cargar la matriz de adyacencia
  */
-void Lista::cargarMatrizAdy() {
-    Nodo *nodo = getPrimero(), *nodotemp;
+void Grafo::cargarMatrizAdy() {
+    Vertice *nodo = getPrimero(), *nodotemp;
     int i, j;
     int cant = cantidadVertices();
     for(i = 0; i < cant; i++){
         nodotemp = getPrimero();
         for(j = 0; j < cant; j++){
-            matrizAdyacente[i][j] = existeArco(nodo->getVertice(), nodotemp->getVertice());
-            nodotemp = nodotemp->getSiguiente();
+            matrizAdyacente[i][j] = existeArco(nodo->getValor(), nodotemp->getValor());
+            nodotemp = nodotemp->getSig();
         }
-        nodo = nodo->getSiguiente();
+        nodo = nodo->getSig();
     }
     delete nodo;
     delete nodotemp;
@@ -126,17 +128,17 @@ void Lista::cargarMatrizAdy() {
  * Método:              cargarMatrizCostos
  * Descripción:         Método que permite cargar la matriz de costos
  */
-void Lista::cargarMatrizCostos() {
-    Nodo *nodo = getPrimero(), *nodotemp;
+void Grafo::cargarMatrizCostos() {
+    Vertice *nodo = getPrimero(), *nodotemp;
     int i, j;
     int cant = cantidadVertices();
     for(i = 0; i < cant; i++){
         nodotemp = getPrimero();
         for(j = 0; j < cant; j++){
-            matrizCostos[i][j] = costoArco(nodo->getVertice(), nodotemp->getVertice());
-            nodotemp = nodotemp->getSiguiente();
+            matrizCostos[i][j] = costoArco(nodo->getValor(), nodotemp->getValor());
+            nodotemp = nodotemp->getSig();
         }
-        nodo = nodo->getSiguiente();
+        nodo = nodo->getSig();
     }
     delete nodo;
     delete nodotemp;
@@ -146,24 +148,24 @@ void Lista::cargarMatrizCostos() {
  * Descripción:         Método que permite retornar la matriz de vértices
  * @return              variable de tipo string que contiene la matriz de adyacencia.
  */
-string Lista::mostrarMatrizVertices() {
+string Grafo::mostrarMatrizVertices() {
     string msg;
     int i,j,cant;
-    Nodo *nodo = getPrimero();
+    Vertice *nodo = getPrimero();
     cant = cantidadVertices();
     msg =+ "   "; //espacios
     for(i=0;i<cant;i++){ //ciclo for.
-        msg += "\t" + to_string(nodo->getVertice()) + " ";
-        nodo=nodo->getSiguiente();
+        msg += "\t" + to_string(nodo->getValor()) + " ";
+        nodo= nodo->getSig();
     }
     nodo = getPrimero();
     msg += "\n"; //saltos de linea.
     for( i = 0;i < cant; i++){ //ciclo for.
-        msg += to_string(nodo->getVertice()); //mostramos los vertices de nuestro grafo.
+        msg += to_string(nodo->getValor()); //mostramos los vertices de nuestro grafo.
         for(j = 0; j < cant; j++){ //ciclo for
             msg += "\t" + to_string(matrizAdyacente[i][j]); //mostramos los datos guardados en la matriz.
         }
-        nodo = nodo->getSiguiente(); //igualamos los punteros para que muestre todos los datos.
+        nodo = nodo->getSig(); //igualamos los punteros para que muestre todos los datos.
         msg += "\n"; //salto de linea.
     }
     return msg;
@@ -173,24 +175,24 @@ string Lista::mostrarMatrizVertices() {
  * Descripción:         Método que permite retorna la matriz de costos
  * @return
  */
-string Lista::mostrarMatrizCostos() {
+string Grafo::mostrarMatrizCostos() {
     string msg;
     int i,j,cant; //creamos varibales enteras
-    Nodo *nodo = getPrimero(); //creamos un nuevo puntero.
+    Vertice *nodo = getPrimero(); //creamos un nuevo ady.
     cant = cantidadVertices();
     msg =+ "   "; //espacios
     for(i=0;i<cant;i++){
-        msg += "\t" + to_string(nodo->getVertice()) + " ";
-        nodo=nodo->getSiguiente();
+        msg += "\t" + to_string(nodo->getValor()) + " ";
+        nodo= nodo->getSig();
     }
     nodo = getPrimero();
     msg += "\n"; //saltos de linea.
     for( i = 0;i < cant; i++){
-        msg += to_string(nodo->getVertice()); //mostramos los vertices de nuestro grafo.
+        msg += to_string(nodo->getValor()); //mostramos los vertices de nuestro grafo.
         for(j = 0; j < cant; j++){ //ciclo for
             msg += "\t" + to_string(matrizCostos[i][j]); //mostramos los datos guardados en la matriz.
         }
-        nodo = nodo->getSiguiente();
+        nodo = nodo->getSig();
         msg += "\n"; //salto de linea.
     }
     return msg;
@@ -201,12 +203,12 @@ string Lista::mostrarMatrizCostos() {
  * Descripción:         Método que permite retornar la cartidad de vértices
  * @return              variable de tipo int que representa el número de vértices.
  */
-int Lista::cantidadVertices() const {
-    Nodo *nodo = getPrimero();
+int Grafo::cantidadVertices() const {
+    Vertice *nodo = getPrimero();
     int i=0;
     while(nodo != nullptr){
         i++;
-        nodo = nodo->getSiguiente();
+        nodo = nodo->getSig();
     }
     return i;
 }
@@ -217,8 +219,8 @@ int Lista::cantidadVertices() const {
  * @param f             variable de tipo entero que representa el vértice final
  * @return              variable de tipo int que representa si existe arco (1) o no (0)
  */
-int Lista::existeArco(int i, int f) {
-    Nodo *nodo;
+int Grafo::existeArco(int i, int f) {
+    Vertice *nodo;
     nodo = buscarv(i);
     if(nodo){
         if(buscarAdy(*nodo, f)){
@@ -235,11 +237,11 @@ int Lista::existeArco(int i, int f) {
  * Método:              buscarAdy
  * Descripción:         Método que retorna true si existe vértice adyacente
  * @param aux           variable de tipo nodo que representa el nodo origen
- * @param ad            variable de tipo int que representa el vertice final
+ * @param ad            variable de tipo int que representa el valor final
  * @return              variable de tipo bool, true si existe vértice adyacente
  */
-bool Lista::buscarAdy(Nodo aux, int ad) {
-    NodoArco *temp = aux.getPuntero();
+bool Grafo::buscarAdy(Vertice aux, int ad) {
+    Arista *temp = aux.getAdy();
     while(temp){
         if(ad == temp->getAdy()){
             return true;
@@ -255,24 +257,24 @@ bool Lista::buscarAdy(Nodo aux, int ad) {
  * @param f             variable de tipo entero que representa el vértice final
  * @return              variable de tipo int que representa el costo del arco
  */
-int Lista::costoArco(int i, int f) {
-    Nodo *nodo = buscarv(i);
+int Grafo::costoArco(int i, int f) {
+    Vertice *nodo = buscarv(i);
     return buscarCosto(*nodo, f);
 }
 /**
  * Método:              buscarCosto
  * Descripción:         Método que retorna el costo del archo
  * @param aux           variable de tipo nodo que representa el nodo origen
- * @param ad            variable de tipo int que representa el vertice final
+ * @param ad            variable de tipo int que representa el valor final
  * @return              variable de tipo int que representa el costo del arco.
  */
-int Lista::buscarCosto(Nodo aux, int ad) {
-    NodoArco *temp = aux.getPuntero();
+int Grafo::buscarCosto(Vertice aux, int ad) {
+    Arista *temp = aux.getAdy();
     while (temp) {
         if (ad == temp->getAdy()) {
             return temp->getPeso();
         }
-        temp = temp->getSiguiente();//igualamos nuestro puntero para que verifique todos los valores.
+        temp = temp->getSiguiente();//igualamos nuestro ady para que verifique todos los valores.
     }
     return 999;
 }

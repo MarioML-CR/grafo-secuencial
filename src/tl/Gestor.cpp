@@ -5,14 +5,14 @@
 #include "Gestor.h"
 
 Gestor::Gestor() {
-    lista = new Lista();
+    lista = new Grafo();
 }
 
-Lista *Gestor::getLista() const {
+Grafo *Gestor::getLista() const {
     return lista;
 }
 
-void Gestor::setLista(Lista *lista) {
+void Gestor::setLista(Grafo *lista) {
     Gestor::lista = lista;
 }
 

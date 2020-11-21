@@ -7,15 +7,15 @@ Matriz de adyacencia
 
 Matriz de costos
 
-Este código incluye un caso default que corresponde al siguiente grafo
+Este código incluye un caso default que corresponde al sig grafo
 
 ![grafo](/src/img/grafo.png)
 
-Del cual se genera la siguiente matriz de adyacencia
+Del cual se genera la sig matriz de adyacencia
 
 ![matriz-adyacencia](/src/img/matriz-adyacencia.png)
 
-Así como la siguiente matriz de costos
+Así como la sig matriz de costos
 
 ![matriz-de-costos](/src/img/matriz-de-costos.png)
 

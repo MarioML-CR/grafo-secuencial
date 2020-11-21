@@ -6,17 +6,17 @@
 #define GRAFO_SECUENCIAL_GESTOR_H
 
 
-#include "../bl/Lista.h"
+#include "../bl/Grafo.h"
 
 class Gestor {
 public:
     Gestor();
 
-    Lista *getLista() const;
+    Grafo *getLista() const;
 
-    void setLista(Lista *lista);
+    void setLista(Grafo *lista);
 
-    void insertVertice(int valor); // insertar vertice
+    void insertVertice(int valor); // insertar valor
 
     void crearArco(int origen, int destino, int peso); // se crear el arco
 
@@ -31,7 +31,7 @@ public:
     string buscarVertice(int valor);
 
 private:
-    Lista *lista;
+    Grafo *lista;
 };
 
 
