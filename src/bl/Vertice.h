@@ -12,7 +12,7 @@ using namespace std;
 
 class Vertice {
 public:
-    Vertice(int vertice, Arista *puntero = nullptr, Vertice *siguiente = nullptr);
+    Vertice(int valor, Arista *ady = nullptr, Vertice *sig = nullptr);
 
     virtual ~Vertice();
 

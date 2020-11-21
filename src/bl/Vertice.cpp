@@ -4,10 +4,8 @@
 
 #include "Vertice.h"
 
-Vertice::Vertice(int vertice, Arista *puntero, Vertice *siguiente) {
-    setValor(vertice);
-    setAdy(nullptr);
-    setSig(nullptr);
+Vertice::Vertice(int valor, Arista *ady, Vertice *sig) {
+    setValor(valor);
 }
 
 Vertice::~Vertice() {
