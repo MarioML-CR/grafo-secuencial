@@ -12,7 +12,7 @@ using namespace std;
 
 class Vertice {
 public:
-    Vertice(int valor, Arista *ady = nullptr, Vertice *sig = nullptr);
+    Vertice(int valor, Arista *ady = nullptr, Vertice *next = nullptr);
 
     virtual ~Vertice();
 
@@ -24,14 +24,14 @@ public:
 
     void setAdy(Arista *ady);
 
-    Vertice *getSig() const;
+    Vertice *getNext() const;
 
-    void setSig(Vertice *sig);
+    void setNext(Vertice *sig);
 
 private:
-    int valor; //creamos una varible entera.
-    Arista * ady; //creamos un nuevo ady utilizando la clase anteriormente creada
-    Vertice *sig; //creamos un nuevo ady
+    int valor;
+    Arista * ady; // puntero adyacente
+    Vertice *next; // puntero siguiente
 };
 
 

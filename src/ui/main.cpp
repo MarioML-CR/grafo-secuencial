@@ -14,10 +14,11 @@ void crearArcoManual();
 void crearArcoDefault();
 void mostrarMatrizAd();
 void mostrarMatrizCostos();
-void buscarVertice();
+void exiteVertice();
+void existeArco();
+void cantidadVertices();
 
 int main() {
-    insertVertice();
     menu();
     return 0;
 }
@@ -27,12 +28,15 @@ void menu() {
     int opcion = 0;
     do {
         cout << "\nMenú Árbol\n\nElija una opción\n" <<
-             "01 Crear arco manual\n" <<
-             "02 Crear arco default\n" <<
-             "03 Mostrar matriz adyacente\n" <<
-             "04 Mostrar matriz de Costos\n" <<
-             "05 Buscar vértice\n" <<
-             "06 Salir\n";
+             "01 Crear vértices automático\n" <<
+             "02 Crear arco manual\n" <<
+             "03 Crear arco default\n" <<
+             "04 Mostrar matriz adyacente\n" <<
+             "05 Mostrar matriz de Costos\n" <<
+             "06 Mostrar número de vértices\n" <<
+             "07 Existe vértice\n" <<
+             "08 Existe arco\n" <<
+             "09 Salir\n";
         cin >> valor;
         opcion = validar.ingresarInt(valor);
         procesarMenu(opcion, salir);
@@ -41,21 +45,30 @@ void menu() {
 void procesarMenu(int & pOpcion, bool & salir) {
     switch (pOpcion) {
         case 1:
-            crearArcoManual();
+            insertVertice();
             break;
         case 2:
-            crearArcoDefault();
+            crearArcoManual();
             break;
         case 3:
-            mostrarMatrizAd();
+            crearArcoDefault();
             break;
         case 4:
-            mostrarMatrizCostos();
+            mostrarMatrizAd();
             break;
         case 5:
-            buscarVertice();
+            mostrarMatrizCostos();
             break;
         case 6:
+            cantidadVertices();
+            break;
+        case 7:
+            exiteVertice();
+            break;
+        case 8:
+            existeArco();
+            break;
+        case 9:
             salir = true;
             break;
         default:
@@ -76,17 +89,17 @@ int ingresarNum(string msg){
     return num;
 }
 void insertVertice(){
-    for (int i = 1; i <= 8; ++i) {
-        gestor.insertVertice(i);
-    }
-//    gestor.insertVertice(5);
-//    gestor.insertVertice(8);
-//    gestor.insertVertice(3);
-//    gestor.insertVertice(2);
-//    gestor.insertVertice(4);
-//    gestor.insertVertice(6);
-//    gestor.insertVertice(7);
-//    gestor.insertVertice(1);
+    /*
+     * Se ingresar vértices en desorden y se insertan en orden
+     */
+    gestor.insertVertice(5);
+    gestor.insertVertice(8);
+    gestor.insertVertice(3);
+    gestor.insertVertice(2);
+    gestor.insertVertice(4);
+    gestor.insertVertice(6);
+    gestor.insertVertice(7);
+    gestor.insertVertice(1);
 }
 void crearArcoManual(){
     string msg1 = "Ingrese el vértice origen\n";
@@ -99,36 +112,35 @@ void crearArcoManual(){
         verticeOrigen = ingresarNum(msg1);
         verticeDestino = ingresarNum(msg2);
         peso = ingresarNum(msg3);
-        gestor.crearArco(verticeOrigen,verticeDestino,peso);
-        gestor.crearArco(verticeDestino,verticeOrigen,peso);
+        cout << gestor.crearArco(verticeOrigen,verticeDestino,peso);
         salir = ingresarNum(msg4);
     }
     gestor.crearMatrizAdyacente();
     gestor.crearMatrizCostos();
 }
 void crearArcoDefault(){
-    gestor.crearArco(1,2,1);
-    gestor.crearArco(2,1,1); // 1-2
-    gestor.crearArco(1,4,3);
-    gestor.crearArco(4,1,3); // 1-4
-    gestor.crearArco(2,3,5);
-    gestor.crearArco(3,2,5); // 2-3
-    gestor.crearArco(2,5,2);
-    gestor.crearArco(5,2,2); // 2-5
-    gestor.crearArco(3,5,2);
-    gestor.crearArco(5,3,2); // 3-5
-    gestor.crearArco(3,6,3);
-    gestor.crearArco(6,3,3); // 3-6
-    gestor.crearArco(4,5,1);
-    gestor.crearArco(5,4,1); // 4-5
-    gestor.crearArco(4,7,5);
-    gestor.crearArco(7,4,5); // 4-7
-    gestor.crearArco(5,8,4);
-    gestor.crearArco(8,5,4); // 5-8
-    gestor.crearArco(7,8,2);
-    gestor.crearArco(8,7,2); // 7-8
-    gestor.crearArco(6,8,1);
-    gestor.crearArco(8,6,1); // 6-8
+    cout << gestor.crearArco(1,2,1);
+    cout << gestor.crearArco(2,1,1); // 1-2
+    cout << gestor.crearArco(1,4,3);
+    cout << gestor.crearArco(4,1,3); // 1-4
+    cout << gestor.crearArco(2,3,5);
+    cout << gestor.crearArco(3,2,5); // 2-3
+    cout << gestor.crearArco(2,5,2);
+    cout << gestor.crearArco(5,2,2); // 2-5
+    cout << gestor.crearArco(3,5,2);
+    cout << gestor.crearArco(5,3,2); // 3-5
+    cout << gestor.crearArco(3,6,3);
+    cout << gestor.crearArco(6,3,3); // 3-6
+    cout << gestor.crearArco(4,5,1);
+    cout << gestor.crearArco(5,4,1); // 4-5
+    cout << gestor.crearArco(4,7,5);
+    cout << gestor.crearArco(7,4,5); // 4-7
+    cout << gestor.crearArco(5,8,4);
+    cout << gestor.crearArco(8,5,4); // 5-8
+    cout << gestor.crearArco(7,8,2);
+    cout << gestor.crearArco(8,7,2); // 7-8
+    cout << gestor.crearArco(6,8,1);
+    cout << gestor.crearArco(8,6,1); // 6-8
     gestor.crearMatrizAdyacente();
     gestor.crearMatrizCostos();
 }
@@ -136,13 +148,24 @@ void mostrarMatrizAd(){
     string matriz = gestor.mostrarMartrizAdyacente();
     cout << matriz << endl;
 }
-void buscarVertice(){
+void exiteVertice(){
     string msg = "Ingrese el vértice que desea buscar\n";
     int vertice = ingresarNum(msg);
-    string msg2 = gestor.buscarVertice(vertice);
+    string msg2 = gestor.existeVertice(vertice);
     cout << msg2 << endl;
 }
 void mostrarMatrizCostos(){
     string matriz = gestor.mostrarMartrizCostos();
     cout << matriz << endl;
+}
+void cantidadVertices() {
+    cout << gestor.cantidadVertices();
+}
+void existeArco(){
+    string msg = "Ingrese el vértice origen\n";
+    int origen = ingresarNum(msg);
+    msg = "Ingrese el vértice destino\n";
+    int destino = ingresarNum(msg);
+    msg = gestor.existeArco(origen, destino);
+    cout << msg << endl;
 }

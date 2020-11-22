@@ -4,10 +4,9 @@
 
 #include "Arista.h"
 
-Arista::Arista(int ady, int peso, Arista *siguiente) {
+Arista::Arista(int ady, int peso, Arista *siguiente) : ady(ady), peso(peso), siguiente(siguiente) {
     setAdy(ady);
     setPeso(peso);
-    setSiguiente(siguiente);
 }
 
 Arista::~Arista() {
@@ -37,3 +36,5 @@ Arista *Arista::getSiguiente() const {
 void Arista::setSiguiente(Arista *siguiente) {
     Arista::siguiente = siguiente;
 }
+
+

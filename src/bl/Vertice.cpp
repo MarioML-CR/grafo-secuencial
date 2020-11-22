@@ -4,7 +4,7 @@
 
 #include "Vertice.h"
 
-Vertice::Vertice(int valor, Arista *ady, Vertice *sig) {
+Vertice::Vertice(int valor, Arista *ady, Vertice *next) : valor(valor), ady(ady), next(next) {
     setValor(valor);
 }
 
@@ -28,10 +28,12 @@ void Vertice::setAdy(Arista *ady) {
     Vertice::ady = ady;
 }
 
-Vertice *Vertice::getSig() const {
-    return sig;
+Vertice *Vertice::getNext() const {
+    return next;
 }
 
-void Vertice::setSig(Vertice *sig) {
-    Vertice::sig = sig;
+void Vertice::setNext(Vertice *sig) {
+    Vertice::next = sig;
 }
+
+

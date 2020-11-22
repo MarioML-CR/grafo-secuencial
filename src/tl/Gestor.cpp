@@ -20,8 +20,8 @@ void Gestor::insertVertice(int valor) {
     getLista()->insertarVertice(valor);
 }
 
-void Gestor::crearArco(int origen, int destino, int peso) {
-    getLista()->crearArco(origen, destino, peso);
+string Gestor::crearArco(int origen, int destino, int peso) {
+    return getLista()->crearArco(origen, destino, peso);
 }
 
 void Gestor::crearMatrizAdyacente() {
@@ -32,8 +32,15 @@ string Gestor::mostrarMartrizAdyacente() {
     return getLista()->mostrarMatrizVertices();
 }
 
-string Gestor::buscarVertice(int valor) {
-    if (getLista()->buscarv(valor)) {
+string Gestor::existeArco(int origen, int destino) {
+    if (getLista()->existeArco(origen, destino)) {
+        return "existe";
+    } else {
+        return "no existe";
+    }
+}
+string Gestor::existeVertice(int vertice) {
+    if (getLista()->existeVertice(vertice)) {
         return "existe";
     } else {
         return "no existe";
@@ -47,3 +54,9 @@ void Gestor::crearMatrizCostos() {
 string Gestor::mostrarMartrizCostos() {
     return getLista()->mostrarMatrizCostos();
 }
+
+int Gestor::cantidadVertices() const {
+    return getLista()->cantidadVertices();
+}
+
+

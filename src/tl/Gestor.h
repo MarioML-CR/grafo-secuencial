@@ -18,7 +18,7 @@ public:
 
     void insertVertice(int valor); // insertar valor
 
-    void crearArco(int origen, int destino, int peso); // se crear el arco
+    string crearArco(int origen, int destino, int peso); // se crear el arco
 
     void crearMatrizAdyacente(); // se crea la matriz de ady
 
@@ -28,7 +28,11 @@ public:
 
     string mostrarMartrizCostos();
 
-    string buscarVertice(int valor);
+    string existeArco(int i, int f);
+
+    string existeVertice(int i);
+
+    int cantidadVertices() const;
 
 private:
     Grafo *lista;
