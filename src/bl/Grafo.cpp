@@ -36,21 +36,21 @@ void Grafo::setTam(int tam) {
  * Descripción:         Método que permite insertar un vértice
  * @param v             variable que representa el valor de vértice
  */
-void Grafo::insertarVertice(int v) {
-    if (esListaVacia()) {
-        setHead(new Vertice(v));
+void Grafo::insertarVertice(int valor) {
+    if (esVacio()) {
+        setHead(new Vertice(valor));
         setTail(getHead());
         setTam(getTam() + 1);
     } else {
-        if(getHead()->getValor() >= v){ // inserta al inicio
-            insertarAlIincio(v);
-        } else if(getTail()->getValor() <= v) { // insertar al final
-            insertarAlFinal(v);
+        if(getHead()->getValor() >= valor){ // inserta al inicio
+            insertarAlIincio(valor);
+        } else if(getTail()->getValor() <= valor) { // insertar al final
+            insertarAlFinal(valor);
         } else {
             Vertice *aux = getHead();
             do {
-                if (aux->getValor() <= v && aux->getNext()->getValor() >= v){
-                    Vertice *nuevo = new Vertice(v);
+                if (aux->getValor() <= valor && aux->getNext()->getValor() >= valor){
+                    Vertice *nuevo = new Vertice(valor);
                     nuevo->setNext(aux->getNext());
                     aux->setNext(nuevo);
                     setTam(getTam() + 1);
@@ -66,8 +66,8 @@ void Grafo::insertarVertice(int v) {
  * Descripción:         Método privado que permite insertar un vértice a la lista de vértices al inicio
  * @param v             variable de tipo int que representa el valor del vértice a insertar
  */
-void Grafo::insertarAlIincio(int v) {
-    Vertice *nuevo = new Vertice(v);
+void Grafo::insertarAlIincio(int valor) {
+    Vertice *nuevo = new Vertice(valor);
     nuevo->setNext(getHead());
     setHead(nuevo);
     setTam(getTam() + 1);
@@ -77,19 +77,19 @@ void Grafo::insertarAlIincio(int v) {
  * Descripción:         Método privado que permite insertar un vértice a la lista de vértices al final
  * @param v             variable de tipo int que representa el valor del vértice a insertar
  */
-void Grafo::insertarAlFinal(int v) {
-    Vertice *nuevo = new Vertice(v);
+void Grafo::insertarAlFinal(int valor) {
+    Vertice *nuevo = new Vertice(valor);
     getTail()->setNext(nuevo);
     setTail(nuevo);
     setTam(getTam() + 1);
 }
 
 /**
- * Método:              esListaVacia
+ * Método:              esVacio
  * Descripción:         Método que permite verificar si la lista de vértices está vacía
  * @return              variable de tipo bool, true si está vacía, falso lo inverso.
  */
-bool Grafo::esListaVacia() const { //función booleana.
+bool Grafo::esVacio() const { //función booleana.
     return getHead() == nullptr;
 }
 /**
@@ -123,17 +123,7 @@ bool Grafo::existeVertice(int i) {
         return true;
     }
 }
-/**
- * Método:              existeArco
- * Descripción:         Método que permite verificar si existen los vértices que se pasan por
- * parámetro
- * @param i             variable de tipo entero que representa el vértice inical
- * @param f             variable de tipo entero que representa el vértice final
- * @return              variable de tipo bool, false si no existen, falso lo inverso.
- */
-bool Grafo::existeArco(int i, int f) const {
-    return (buscarVertice(i) != nullptr && buscarVertice(f) != nullptr);
-}
+
 /**
  * Método:              crearArcoManual
  * Descripción:         Método que permite crear un arco entre los dos vértices pasados
@@ -229,23 +219,27 @@ void Grafo::cargarMatrizCostos() {
  */
 string Grafo::mostrarMatrizVertices() {
     string msg;
-    int i,j,cant;
-    Vertice *nodo = getHead();
-    cant = cantidadVertices();
-    msg =+ "   "; //espacios
-    for(i=0;i<cant;i++){ //ciclo for.
-        msg += "\t" + to_string(nodo->getValor()) + " ";
-        nodo= nodo->getNext();
-    }
-    nodo = getHead();
-    msg += "\n"; //saltos de linea.
-    for( i = 0;i < cant; i++){ //ciclo for.
-        msg += to_string(nodo->getValor()); //mostramos los vertices de nuestro grafo.
-        for(j = 0; j < cant; j++){ //ciclo for
-            msg += "\t" + to_string(matrizAdyacente[i][j]); //mostramos los datos guardados en la matriz.
+    if (getTam() > 0){
+        int i,j,cant;
+        Vertice *nodo = getHead();
+        cant = cantidadVertices();
+        msg =+ "   "; //espacios
+        for(i=0;i<cant;i++){ //ciclo for.
+            msg += "\t" + to_string(nodo->getValor()) + " ";
+            nodo= nodo->getNext();
         }
-        nodo = nodo->getNext(); //igualamos los punteros para que muestre todos los datos.
-        msg += "\n"; //salto de linea.
+        nodo = getHead();
+        msg += "\n"; //saltos de linea.
+        for( i = 0;i < cant; i++){ //ciclo for.
+            msg += to_string(nodo->getValor()); //mostramos los vertices de nuestro grafo.
+            for(j = 0; j < cant; j++){ //ciclo for
+                msg += "\t" + to_string(matrizAdyacente[i][j]); //mostramos los datos guardados en la matriz.
+            }
+            nodo = nodo->getNext(); //igualamos los punteros para que muestre todos los datos.
+            msg += "\n"; //salto de linea.
+        }
+    } else {
+        msg = "No hay elementos que eliminar\n";
     }
     return msg;
 }
@@ -335,6 +329,16 @@ int Grafo::buscarCosto(Vertice aux, int ad) {
         temp = temp->getSiguiente();//igualamos nuestro ady para que verifique todos los valores.
     }
     return 999;
+}
+
+void Grafo::eliminarGrafo() {
+    Vertice *aux;
+    while (getHead() != nullptr){
+        aux = getHead();
+        setHead(getHead()->getNext());
+        delete aux;
+    }
+    setTam(0);
 }
 
 

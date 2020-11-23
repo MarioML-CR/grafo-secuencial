@@ -34,6 +34,8 @@ public:
 
     int cantidadVertices() const;
 
+    string eliminarGrafo();
+
 private:
     Grafo *lista;
 };

@@ -17,6 +17,7 @@ void mostrarMatrizCostos();
 void exiteVertice();
 void existeArco();
 void cantidadVertices();
+void eliminarGrafo();
 
 int main() {
     menu();
@@ -31,12 +32,13 @@ void menu() {
              "01 Crear vértices automático\n" <<
              "02 Crear arco manual\n" <<
              "03 Crear arco default\n" <<
-             "04 Mostrar matriz adyacente\n" <<
-             "05 Mostrar matriz de Costos\n" <<
-             "06 Mostrar número de vértices\n" <<
-             "07 Existe vértice\n" <<
-             "08 Existe arco\n" <<
-             "09 Salir\n";
+             "04 Eliminar grafo\n" <<
+             "05 Mostrar matriz adyacente\n" <<
+             "06 Mostrar matriz de Costos\n" <<
+             "07 Mostrar número de vértices\n" <<
+             "08 Existe vértice\n" <<
+             "09 Existe arco\n" <<
+             "10 Salir\n";
         cin >> valor;
         opcion = validar.ingresarInt(valor);
         procesarMenu(opcion, salir);
@@ -54,21 +56,24 @@ void procesarMenu(int & pOpcion, bool & salir) {
             crearArcoDefault();
             break;
         case 4:
-            mostrarMatrizAd();
+            eliminarGrafo();
             break;
         case 5:
-            mostrarMatrizCostos();
+            mostrarMatrizAd();
             break;
         case 6:
-            cantidadVertices();
+            mostrarMatrizCostos();
             break;
         case 7:
-            exiteVertice();
+            cantidadVertices();
             break;
         case 8:
-            existeArco();
+            exiteVertice();
             break;
         case 9:
+            existeArco();
+            break;
+        case 10:
             salir = true;
             break;
         default:
@@ -145,14 +150,24 @@ void crearArcoDefault(){
     gestor.crearMatrizCostos();
 }
 void mostrarMatrizAd(){
-    string matriz = gestor.mostrarMartrizAdyacente();
-    cout << matriz << endl;
+    if (gestor.cantidadVertices() > 0){
+        string matriz = gestor.mostrarMartrizAdyacente();
+        cout << matriz << endl;
+    } else {
+        cout << "No existe grafo" << endl;
+    }
+
 }
 void exiteVertice(){
-    string msg = "Ingrese el vértice que desea buscar\n";
-    int vertice = ingresarNum(msg);
-    string msg2 = gestor.existeVertice(vertice);
-    cout << msg2 << endl;
+    if (gestor.cantidadVertices() > 0) {
+        string msg = "Ingrese el vértice que desea buscar\n";
+        int vertice = ingresarNum(msg);
+        string msg2 = gestor.existeVertice(vertice);
+        cout << msg2 << endl;
+    } else {
+        cout << "No existe grafo" << endl;
+    }
+
 }
 void mostrarMatrizCostos(){
     string matriz = gestor.mostrarMartrizCostos();
@@ -162,10 +177,22 @@ void cantidadVertices() {
     cout << gestor.cantidadVertices();
 }
 void existeArco(){
-    string msg = "Ingrese el vértice origen\n";
-    int origen = ingresarNum(msg);
-    msg = "Ingrese el vértice destino\n";
-    int destino = ingresarNum(msg);
-    msg = gestor.existeArco(origen, destino);
-    cout << msg << endl;
+    if (gestor.cantidadVertices() > 0){
+        string msg = "Ingrese el vértice origen\n";
+        int origen = ingresarNum(msg);
+        msg = "Ingrese el vértice destino\n";
+        int destino = ingresarNum(msg);
+        msg = gestor.existeArco(origen, destino);
+        cout << msg << endl;
+    } else {
+        cout << "No existe grafo" << endl;
+    }
+
+}
+void eliminarGrafo(){
+    if (gestor.cantidadVertices() > 0){
+        cout << gestor.eliminarGrafo() << endl;
+    } else {
+        cout << "No existe grafo" << endl;
+    }
 }

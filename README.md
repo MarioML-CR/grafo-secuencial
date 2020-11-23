@@ -12,6 +12,7 @@ Los vértices son insertados en forma ordenada (ascendente), independientemente 
 * Mostrar matriz adyacente
 * Mostrar matriz de Costos
 * Mostrar número de vértices
+* Eliminar grafo
 * Existe vértice
 * Existe arco
 

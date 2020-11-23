@@ -59,4 +59,13 @@ int Gestor::cantidadVertices() const {
     return getLista()->cantidadVertices();
 }
 
+string Gestor::eliminarGrafo() {
+    if (getLista()->esVacio()){
+        return "El grafo no contiene elementos que eliminar";
+    } else {
+        getLista()->eliminarGrafo();
+        return "El grafo fue eliminado";
+    }
+}
+
 

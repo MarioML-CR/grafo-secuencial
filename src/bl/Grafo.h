@@ -29,7 +29,7 @@ public:
     //nuestras funciones pincipales.
 
     void insertarVertice(int v); // función para insertar los datos.
-    bool esListaVacia() const;  //función para revisar si nuestra lista esta vacio
+    bool esVacio() const;  //función para revisar si nuestra lista esta vacio
     Vertice *buscarVertice(int v) const; //función para buscar.
     bool existeVertice(int i);
     string crearArco(int i, int f, int peso);//función para crear los arcos de nuestro grafo.
@@ -41,6 +41,7 @@ public:
     bool existeArco(int i, int f);//función para  verificar si nuestro grafo tiene arcos
     int costoArco(int i, int f);//función para  verificar si nuestro grafo tiene arcos
     int buscarCosto(Vertice aux, int ad);//función booleana para verificar si nuestro grafo tiene arcos
+    void eliminarGrafo();
 private:
     Vertice *head;
     Vertice *tail;
